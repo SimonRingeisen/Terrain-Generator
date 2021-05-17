@@ -2,7 +2,8 @@ import { LitElement, html, css } from 'lit-element';
 
 import { initShaderProgram } from '../jae-shader/shaders.js';
 import Scene from '../jae-scene/scene.js';
-import RotatingCubeScene from '../jae-scene/rotating-cube-scene.js';
+// import RotatingCubeScene from '../jae-scene/rotating-cube-scene.js';
+import TerrainScene from '../jae-scene/terrain-scene.js';
 
 export class jaeCanvas extends LitElement {
   static styles = css`
@@ -46,7 +47,8 @@ export class jaeCanvas extends LitElement {
       return;
     }
 
-    this.scene = new RotatingCubeScene(this.gl, shaderProgram);
+    //    this.scene = new RotatingCubeScene(this.gl, shaderProgram);
+    this.scene = new TerrainScene(this.gl, shaderProgram);
 
     const context = this;
     function renderCanvas(now: number) {

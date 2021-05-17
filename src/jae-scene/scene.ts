@@ -119,7 +119,7 @@ export default class Scene {
     );
 
     {
-      const vertexCount = 36;
+      const vertexCount = this.models[0].indices.length;
       const type = this.gl.UNSIGNED_SHORT;
       const offset = 0;
       this.gl.drawElements(this.gl.TRIANGLES, vertexCount, type, offset);
