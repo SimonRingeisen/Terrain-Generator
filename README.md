@@ -13,3 +13,4 @@ This is a project to create a Web-GL based Animation Editor, implemented in Type
 ## Resources
 
 - [MDN Web Docs' WebGL Tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial)
+- [University of Regina, CS315](https://www.cs.uregina.ca/Links/class-info/315/WebGL/Lab3/)
