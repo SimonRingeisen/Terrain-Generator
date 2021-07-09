@@ -4,33 +4,36 @@ import Scene from './scene.js';
 import TerrainMesh from '../jae-primitives/terrain-mesh.js';
 
 export default class TerrainScene extends Scene {
-  cubeRotation: number = 0;
+  terrainRotation: number = 0;
 
-  cube: TerrainMesh = new TerrainMesh(100, 100, 0.1, 3);
+  terrain: TerrainMesh = new TerrainMesh(100, 100, 1, 3);
 
   constructor(gl: WebGLRenderingContext, shaderProgram: WebGLProgram) {
     super(gl, shaderProgram);
 
-    this.cube.transform = this.calculateCubeModelMatrix();
-    this.addModel(this.cube);
+    this.terrain.transform = this.calculateModelMatrix();
+    this.addModel(this.terrain);
     this.fillBuffer(); // TODO find a better place for this
   }
 
   draw(now: number) {
     const deltaTime = now - this.lastCallTime;
-    this.cubeRotation += deltaTime / 1000;
-    this.cube.transform = this.calculateCubeModelMatrix();
+    this.terrainRotation += deltaTime / 5000;
+    this.terrain.transform = this.calculateModelMatrix();
 
     super.draw(now);
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  calculateCubeModelMatrix() {
+  calculateModelMatrix() {
     const cubeMMatrix = mat4.create();
 
     mat4.translate(cubeMMatrix, cubeMMatrix, [-0.0, 0.0, -6.0]);
-    mat4.rotate(cubeMMatrix, cubeMMatrix, this.cubeRotation, [0, 0, 1]);
-    mat4.rotate(cubeMMatrix, cubeMMatrix, this.cubeRotation * 0.7, [0, 1, 0]);
+    mat4.rotate(cubeMMatrix, cubeMMatrix, this.terrainRotation, [0, 0, 1]);
+    mat4.rotate(cubeMMatrix, cubeMMatrix, this.terrainRotation * 0.7, [
+      0,
+      1,
+      0,
+    ]);
 
     return cubeMMatrix;
   }
