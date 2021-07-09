@@ -7,16 +7,10 @@ import TerrainScene from '../jae-scene/terrain-scene.js';
 
 export class jaeCanvas extends LitElement {
   static styles = css`
-    :host {
-      min-width: 100vw;
-      min-height: 100vh;
+    canvas {
+      display: block;
       width: 100vw;
       height: 100vh;
-    }
-
-    canvas {
-      width: 100%;
-      height: 100%;
     }
   `;
 
@@ -27,7 +21,7 @@ export class jaeCanvas extends LitElement {
   scene: Scene | undefined;
 
   render() {
-    return html` <canvas id="glCanvas" width="640" height="480"></canvas> `;
+    return html` <canvas id="glCanvas"></canvas> `;
   }
 
   firstUpdated() {
@@ -51,7 +45,37 @@ export class jaeCanvas extends LitElement {
     this.scene = new TerrainScene(this.gl, shaderProgram);
 
     const context = this;
+
+    // Resizes the canvas to match its size on the screen. Returns true, if the size has changed.
+    function resizeCanvasToDisplaySize(canvas: HTMLCanvasElement) {
+      const displayWidth = canvas.clientWidth;
+      const displayHeight = canvas.clientHeight;
+
+      const needResize =
+        canvas.width !== displayWidth || canvas.height !== displayHeight;
+
+      if (needResize) {
+        // eslint-disable-next-line no-param-reassign
+        canvas.width = displayWidth;
+        // eslint-disable-next-line no-param-reassign
+        canvas.height = displayHeight;
+      }
+
+      return needResize;
+    }
+
     function renderCanvas(now: number) {
+      if (context.gl && context.gl!.canvas instanceof HTMLCanvasElement) {
+        if (resizeCanvasToDisplaySize(context.gl!.canvas)) {
+          context.gl.viewport(
+            0,
+            0,
+            context.gl.canvas.width,
+            context.gl.canvas.height
+          );
+          context.scene!.updateProjectionMatrix();
+        }
+      }
       context.scene!.draw(now);
       requestAnimationFrame(renderCanvas);
     }
