@@ -1,3 +1,5 @@
+import { vec3 } from 'gl-matrix';
+
 import Mesh from './mesh.js';
 import Perlin from '../util/perlin.js';
 
@@ -50,7 +52,7 @@ export default class TerrainMesh extends Mesh {
       }
     }
 
-    this.vertexNormals = [];
+    this.vertexNormals = this.getNormals(width, depth);
   }
 
   static getVertices(
@@ -73,5 +75,63 @@ export default class TerrainMesh extends Mesh {
       }
     }
     return vertices;
+  }
+
+  getNormals(width: number, depth: number) {
+    const normals: number[] = new Array(this.vertices.length);
+
+    for (let i = 0; i < width; i += 1) {
+      for (let j = 0; j < depth; j += 1) {
+        const deltaX: vec3 = vec3.create();
+        const deltaY: vec3 = vec3.create();
+
+        const startX = Math.max(1, i - 1);
+        const endX = Math.min(i + 1, width - 2);
+
+        const startY = Math.max(1, j - 1);
+        const endY = Math.min(j + 1, depth - 2);
+
+        vec3.sub(
+          deltaX,
+          [
+            this.vertices[(j * width + endX) * 3],
+            this.vertices[(j * width + endX) * 3 + 1],
+            this.vertices[(j * width + endX) * 3 + 2],
+          ],
+          [
+            this.vertices[(j * width + startX) * 3],
+            this.vertices[(j * width + startX) * 3 + 1],
+            this.vertices[(j * width + startX) * 3 + 2],
+          ]
+        );
+
+        vec3.sub(
+          deltaY,
+          [
+            this.vertices[(endY * width + i) * 3],
+            this.vertices[(endY * width + i) * 3 + 1],
+            this.vertices[(endY * width + i) * 3 + 2],
+          ],
+          [
+            this.vertices[(startY * width + i) * 3],
+            this.vertices[(startY * width + i) * 3 + 1],
+            this.vertices[(startY * width + i) * 3 + 2],
+          ]
+        );
+
+        const n: vec3 = vec3.create();
+        vec3.normalize(deltaX, deltaX);
+        vec3.normalize(deltaY, deltaY);
+        vec3.cross(n, deltaX, deltaY);
+
+        [
+          normals[(j * width + i) * 3],
+          normals[(j * width + i) * 3 + 1],
+          normals[(j * width + i) * 3 + 2],
+        ] = n;
+      }
+    }
+
+    return normals;
   }
 }

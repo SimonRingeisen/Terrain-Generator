@@ -1,5 +1,6 @@
 const vsSource = `
     attribute vec4 aVertexPosition;
+    attribute vec4 aVertexNormal;
     attribute vec4 aVertexColor;
 
     uniform mat4 uModelViewMatrix;
@@ -9,7 +10,8 @@ const vsSource = `
 
     void main(void) {
       gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
-      vColor = aVertexColor;
+      aVertexColor;
+      vColor = vec4(aVertexNormal.z, aVertexNormal.z, aVertexNormal.z, 1.0);
     }
   `;
 
@@ -17,7 +19,7 @@ const fsSource = `
     varying lowp vec4 vColor;
 
     void main(void) {
-      gl_FragColor = vColor;
+      gl_FragColor = vColor;//mix(vec4(1, 0, 0, 1),vec4(0, 1, 0, 1), (vHeight+1.0)/2.0) ;
     }
   `;
 

@@ -41,6 +41,7 @@ export default class Scene {
       program: shaderProgram,
       attribLocations: {
         vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+        vertexNormal: gl.getAttribLocation(shaderProgram, 'aVertexNormal'),
         vertexColor: gl.getAttribLocation(shaderProgram, 'aVertexColor'),
       },
       uniformLocations: {
@@ -64,6 +65,7 @@ export default class Scene {
     this.clearCanvas();
 
     {
+      // Vertex Buffer
       const numComponents = 3;
       const type = this.gl.FLOAT;
       const normalize = false;
@@ -84,6 +86,28 @@ export default class Scene {
     }
 
     {
+      // Normal Buffer
+      const numComponents = 3;
+      const type = this.gl.FLOAT;
+      const normalize = true;
+      const stride = 0;
+      const offset = 0;
+      this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.normalBuffer);
+      this.gl.vertexAttribPointer(
+        this.programInfo.attribLocations.vertexNormal,
+        numComponents,
+        type,
+        normalize,
+        stride,
+        offset
+      );
+      this.gl.enableVertexAttribArray(
+        this.programInfo.attribLocations.vertexNormal
+      );
+    }
+
+    {
+      // Color Buffer
       const numComponents = 4;
       const type = this.gl.FLOAT;
       const normalize = false;
@@ -103,6 +127,7 @@ export default class Scene {
       );
     }
 
+    // Index Buffer
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
     this.gl.useProgram(this.programInfo.program);
 
@@ -151,6 +176,7 @@ export default class Scene {
       counter += model.indices.length;
     });
 
+    // Vertex Buffer
     this.vertexBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
 
@@ -160,6 +186,17 @@ export default class Scene {
       this.gl.STATIC_DRAW
     );
 
+    // Normal Buffer
+    this.normalBuffer = this.gl.createBuffer();
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.normalBuffer);
+
+    this.gl.bufferData(
+      this.gl.ARRAY_BUFFER,
+      new Float32Array(vertexNormals),
+      this.gl.STATIC_DRAW
+    );
+
+    // Color Buffer
     this.colorBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.colorBuffer);
 
@@ -169,6 +206,7 @@ export default class Scene {
       this.gl.STATIC_DRAW
     );
 
+    // Index Buffer
     this.indexBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
 
