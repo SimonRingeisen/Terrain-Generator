@@ -25,16 +25,16 @@ export default class TerrainScene extends Scene {
   }
 
   calculateModelMatrix() {
-    const cubeMMatrix = mat4.create();
+    const ModelMatrix = mat4.create();
 
-    mat4.translate(cubeMMatrix, cubeMMatrix, [-0.0, 0.0, -6.0]);
-    mat4.rotate(cubeMMatrix, cubeMMatrix, (Math.PI * 2) / 3, [1, 0, 0]);
-    mat4.rotate(cubeMMatrix, cubeMMatrix, this.terrainRotation * 0.7, [
+    mat4.translate(ModelMatrix, ModelMatrix, [-0.0, 0.0, -6.0]);
+    mat4.rotate(ModelMatrix, ModelMatrix, (Math.PI * 2) / 3, [1, 0, 0]);
+    mat4.rotate(ModelMatrix, ModelMatrix, this.terrainRotation * 0.7, [
       0,
       0,
       1,
     ]);
 
-    return cubeMMatrix;
+    return ModelMatrix;
   }
 }
