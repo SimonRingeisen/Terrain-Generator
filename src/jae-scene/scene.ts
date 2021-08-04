@@ -35,7 +35,7 @@ export default class Scene {
     this.lastCallTime = 0;
     this.gl = gl;
     this.updateProjectionMatrix();
-    this.fillBuffer();
+    this.initBuffers();
 
     this.programInfo = {
       program: shaderProgram,
@@ -153,7 +153,14 @@ export default class Scene {
     this.lastCallTime = now;
   }
 
-  fillBuffer() {
+  initBuffers() {
+    this.vertexBuffer = this.gl.createBuffer();
+    this.normalBuffer = this.gl.createBuffer();
+    this.colorBuffer = this.gl.createBuffer();
+    this.indexBuffer = this.gl.createBuffer();
+  }
+
+  updateBuffer() {
     let vertices: number[] = [];
     this.models.forEach(model => {
       vertices = vertices.concat(model.vertices);
@@ -177,9 +184,8 @@ export default class Scene {
     });
 
     // Vertex Buffer
-    this.vertexBuffer = this.gl.createBuffer();
-    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
 
+    this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.vertexBuffer);
     this.gl.bufferData(
       this.gl.ARRAY_BUFFER,
       new Float32Array(vertices),
@@ -187,9 +193,7 @@ export default class Scene {
     );
 
     // Normal Buffer
-    this.normalBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.normalBuffer);
-
     this.gl.bufferData(
       this.gl.ARRAY_BUFFER,
       new Float32Array(vertexNormals),
@@ -197,9 +201,7 @@ export default class Scene {
     );
 
     // Color Buffer
-    this.colorBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.colorBuffer);
-
     this.gl.bufferData(
       this.gl.ARRAY_BUFFER,
       new Float32Array(colors),
@@ -207,9 +209,7 @@ export default class Scene {
     );
 
     // Index Buffer
-    this.indexBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
-
     this.gl.bufferData(
       this.gl.ELEMENT_ARRAY_BUFFER,
       new Uint16Array(indices),

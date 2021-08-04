@@ -13,7 +13,7 @@ export default class RotatingCubeScene extends Scene {
 
     this.cube.transform = this.calculateCubeModelMatrix();
     this.addModel(this.cube);
-    this.fillBuffer(); // TODO find a better place for this
+    this.updateBuffer(); // TODO find a better place for this
   }
 
   draw(now: number) {
