@@ -1,6 +1,6 @@
-# JS Animation Editor
+# Terrain Generator
 
-This is a project to create a Web-GL based Animation Editor, implemented in TypeScript.
+This is a project to create a Web-GL based Terrain Generator, implemented in TypeScript.
 
 ## Scripts
 
