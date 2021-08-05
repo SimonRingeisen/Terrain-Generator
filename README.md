@@ -1,6 +1,6 @@
-# JS Animation Editor
+# Terrain Generator
 
-This is a project to create a Web-GL based Animation Editor, implemented in TypeScript.
+This is a project to create a Web-GL based Terrain Generator, implemented in TypeScript.
 
 ## Scripts
 
@@ -16,3 +16,4 @@ This is a project to create a Web-GL based Animation Editor, implemented in Type
 - [University of Regina, CS315](https://www.cs.uregina.ca/Links/class-info/315/WebGL/Lab3/)
 - [WebGLFundamentals](https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html)
 - [Sebastian Lague](https://www.youtube.com/channel/UCmtyQOKKmrMVaKuRXz02jbQ)
+- This project uses [esri calcite components](https://github.com/Esri/calcite-components).
