@@ -1,22 +1,21 @@
 import { mat4 } from 'gl-matrix';
 
 import Scene from './scene.js';
-import TerrainMesh from '../jae-primitives/terrain-mesh.js';
+import { TerrainMesh, TerrainConfig } from '../jae-primitives/terrain-mesh.js';
 
 export default class TerrainScene extends Scene {
   terrainRotation: number = 0;
 
-  terrain: TerrainMesh = new TerrainMesh(250, 250, 3, {
-    scale: 1,
-    octaves: 8,
-    persistance: 0.45,
-    lacunarity: 1.7,
-    maxHeight: 1,
-  });
+  terrain: TerrainMesh;
 
-  constructor(gl: WebGLRenderingContext, shaderProgram: WebGLProgram) {
+  constructor(
+    gl: WebGLRenderingContext,
+    shaderProgram: WebGLProgram,
+    config: TerrainConfig
+  ) {
     super(gl, shaderProgram);
 
+    this.terrain = new TerrainMesh(250, 250, 4, config);
     this.terrain.transform = this.calculateModelMatrix();
     this.addModel(this.terrain);
     this.updateBuffer();

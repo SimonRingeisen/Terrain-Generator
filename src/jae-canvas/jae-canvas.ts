@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit-element';
+import { LitElement, html, css, property } from 'lit-element';
 
 import { initShaderProgram } from '../jae-shader/shaders.js';
 import Scene from '../jae-scene/scene.js';
@@ -13,6 +13,14 @@ export default class jaeCanvas extends LitElement {
     }
   `;
 
+  @property({ type: Object }) sceneConfig = {
+    scale: 1,
+    maxHeight: 1,
+    octaves: 8,
+    persistance: 0.45,
+    lacunarity: 1.7,
+  };
+
   canvas: HTMLCanvasElement | undefined = undefined;
 
   gl: WebGLRenderingContext | undefined;
@@ -22,7 +30,6 @@ export default class jaeCanvas extends LitElement {
   render() {
     return html` <canvas id="glCanvas"></canvas> `;
   }
-
 
   firstUpdated() {
     this.canvas = this.shadowRoot?.querySelector(
@@ -41,7 +48,7 @@ export default class jaeCanvas extends LitElement {
       return;
     }
 
-    this.scene = new TerrainScene(this.gl, shaderProgram);
+    this.scene = new TerrainScene(this.gl, shaderProgram, this.sceneConfig);
 
     const context = this;
 

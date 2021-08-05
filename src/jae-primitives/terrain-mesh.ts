@@ -3,7 +3,7 @@ import { vec3 } from 'gl-matrix';
 import Mesh from './mesh.js';
 import Perlin from '../util/perlin.js';
 
-interface TerrainConfig {
+export interface TerrainConfig {
   scale: number;
   octaves: number;
   persistance: number;
@@ -11,7 +11,7 @@ interface TerrainConfig {
   maxHeight: number;
 }
 
-export default class TerrainMesh extends Mesh {
+export class TerrainMesh extends Mesh {
   private perlinNoise: Perlin;
 
   private width: number;
