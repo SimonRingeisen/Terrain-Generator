@@ -70,11 +70,12 @@ export default class TerrainScene extends Scene {
 
     mat4.translate(ModelMatrix, ModelMatrix, [-0.0, 0.0, -6.0]);
     mat4.rotate(ModelMatrix, ModelMatrix, (Math.PI * 2) / 3, [1, 0, 0]);
-    mat4.rotate(ModelMatrix, ModelMatrix, this.terrainRotation * 0.7, [
-      0,
-      0,
-      1,
-    ]);
+    mat4.rotate(
+      ModelMatrix,
+      ModelMatrix,
+      this.terrainRotation * 0.7,
+      [0, 0, 1]
+    );
 
     return ModelMatrix;
   }

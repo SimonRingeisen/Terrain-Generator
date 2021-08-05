@@ -197,30 +197,40 @@ export class JsAnimationEditor extends LitElement {
   }
 
   updateConfigFromSliders() {
-    this.terrainConfig.scale = (this.shadowRoot?.getElementById(
-      'scale-input'
-      // eslint-disable-next-line no-undef
-    ) as HTMLCalciteSliderElement).value!;
+    this.terrainConfig.scale = (
+      this.shadowRoot?.getElementById(
+        'scale-input'
+        // eslint-disable-next-line no-undef
+      ) as HTMLCalciteSliderElement
+    ).value!;
 
-    this.terrainConfig.maxHeight = (this.shadowRoot?.getElementById(
-      'height-input'
-      // eslint-disable-next-line no-undef
-    ) as HTMLCalciteSliderElement).value!;
+    this.terrainConfig.maxHeight = (
+      this.shadowRoot?.getElementById(
+        'height-input'
+        // eslint-disable-next-line no-undef
+      ) as HTMLCalciteSliderElement
+    ).value!;
 
-    this.terrainConfig.octaves = (this.shadowRoot?.getElementById(
-      'octaves-input'
-      // eslint-disable-next-line no-undef
-    ) as HTMLCalciteSliderElement).value!;
+    this.terrainConfig.octaves = (
+      this.shadowRoot?.getElementById(
+        'octaves-input'
+        // eslint-disable-next-line no-undef
+      ) as HTMLCalciteSliderElement
+    ).value!;
 
-    this.terrainConfig.persistance = (this.shadowRoot?.getElementById(
-      'persistance-input'
-      // eslint-disable-next-line no-undef
-    ) as HTMLCalciteSliderElement).value!;
+    this.terrainConfig.persistance = (
+      this.shadowRoot?.getElementById(
+        'persistance-input'
+        // eslint-disable-next-line no-undef
+      ) as HTMLCalciteSliderElement
+    ).value!;
 
-    this.terrainConfig.lacunarity = (this.shadowRoot?.getElementById(
-      'lacunarity-input'
-      // eslint-disable-next-line no-undef
-    ) as HTMLCalciteSliderElement).value!;
+    this.terrainConfig.lacunarity = (
+      this.shadowRoot?.getElementById(
+        'lacunarity-input'
+        // eslint-disable-next-line no-undef
+      ) as HTMLCalciteSliderElement
+    ).value!;
   }
 
   randomizeSeed() {
