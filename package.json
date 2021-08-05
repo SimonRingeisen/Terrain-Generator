@@ -25,10 +25,10 @@
     "start:build": "npm run build && web-dev-server --root-dir dist --app-index index.html --open --compatibility none",
     "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\""
   },
-  "name": "js-animation-editor",
+  "name": "terrain-generator",
   "version": "0.0.0",
-  "description": "Webcomponent js-animation-editor following open-wc recommendations",
-  "author": "js-animation-editor",
+  "description": "This is a project to create a Web-GL based Terrain Generator, implemented in TypeScript.",
+  "author": "Simon Ringeisen",
   "license": "MIT",
   "dependencies": {
     "@esri/calcite-components": "^1.0.0-beta.61",
